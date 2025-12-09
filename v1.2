@@ -1,0 +1,480 @@
+{
+  "name": "6",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA",
+          "mode": "list",
+          "cachedResultName": "respuestas practica ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 3649713,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA/edit#gid=3649713"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        512
+      ],
+      "id": "8c33112c-491b-4898-9737-7cbfbaf0523b",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "IIOmkS6CH9FIWkgJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Instagram sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Imagen o Video'] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a76de094-ab48-45a5-b679-3c4cc52d9261",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-32b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        224
+      ],
+      "id": "5ec4e6de-2279-4a92-95b3-429f2c8dff62",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook sobre la siguiente actividad académica. lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        400
+      ],
+      "id": "e1a14006-2238-4e2c-b4c8-648b54f6f8c3",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        64,
+        624
+      ],
+      "id": "9dc9291c-d306-41ab-b588-ad3e674a2b04",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        912
+      ],
+      "id": "8ec7cfc4-cb72-4253-82a4-51bd07a94b3a",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        64,
+        1136
+      ],
+      "id": "ed02f3be-6040-4f4e-9f1a-f713ce6d9cb0",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "me",
+        "edge": "photos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        864,
+        0
+      ],
+      "id": "4b39d1d1-4ad8-411c-9b48-4d6e57d48ed9",
+      "name": "Facebook Graph API1",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.sort((a,b) => new Date(a.json['Marca temporal']) - new Date(b.json['Marca temporal'])).slice(-1);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        512
+      ],
+      "id": "b1405fa9-90d7-49d6-bc52-a7931ac19ead",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en web institucional?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        912
+      ],
+      "id": "622a09d1-26aa-450c-94b5-51ca8b366425",
+      "name": "WEB"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en Facebook?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        512
+      ],
+      "id": "619f6306-2d60-4491-b46c-e008f1c0c331",
+      "name": "FACE"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en Instagram?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        112
+      ],
+      "id": "fa679c76-e1fd-41f1-8416-ac1e28d4d8bf",
+      "name": "INSTA"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "Imagen o Video (File responses)",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        320,
+        0
+      ],
+      "id": "b7e915d9-ba65-4e06-94a3-c2e65459abae",
+      "name": "Search files and folders",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        528,
+        0
+      ],
+      "id": "5a95756e-244e-4de7-b129-b07ea387cecd",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "INSTA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FACE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "WEB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FACE": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSTA": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b680d946-640d-4e1d-93ea-1bd7ba4afd83",
+  "meta": {
+    "instanceId": "a09f49ffe4461ad01735c6e4f8118f89c0504a1581066e20f0f29f2851d0d652"
+  },
+  "id": "zItT6u2lhh4WfcgG",
+  "tags": []
+}
