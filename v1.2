@@ -1,0 +1,506 @@
+{
+  "name": "5",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA",
+          "mode": "list",
+          "cachedResultName": "respuestas practica ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 3649713,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xd5gkeFJm9YDEsg-dgCGahJzKUw_uLMAQIc94g3gyVA/edit#gid=3649713"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        304
+      ],
+      "id": "25b1c4bb-224a-4f12-9dc0-7610f21e1480",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "IIOmkS6CH9FIWkgJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Instagram sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Imagen o Video'] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "850bc4f4-231d-40e6-890c-f7de2c59c3fc",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        144
+      ],
+      "id": "e5f4b69f-b7b9-4dd6-8dc8-0e6082ecc605",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook sobre la siguiente actividad académica. lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        288
+      ],
+      "id": "a4f2d346-f57f-4ed1-9456-6026df8363e4",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        432
+      ],
+      "id": "0a39375a-3e5a-4934-a189-53eb9375db0b",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        544
+      ],
+      "id": "2b73bebb-22ca-4ada-825f-d3513c125206",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        704
+      ],
+      "id": "6353c847-cc3b-425a-84b3-50c8bf1d199d",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        384,
+        112
+      ],
+      "id": "305f9e3b-ef83-437b-ba72-a156b1d45400",
+      "name": "Facebook Graph API1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        992,
+        512
+      ],
+      "id": "362e2940-9b3a-45f5-b557-31a338aabeb7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.sort((a,b) => new Date(a.json['Marca temporal']) - new Date(b.json['Marca temporal'])).slice(-1);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -432,
+        304
+      ],
+      "id": "69b7728d-545a-42e4-9d6f-22ab7b5a0a3d",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const newItems = [];\n\nitems.forEach(item => {\n  const plataformas = item.json['Donde quiere subir (Hasta 3 opciones)'].split(',').map(p => p.trim());\n  \n  plataformas.forEach(plataforma => {\n    const newItem = { json: { ...item.json } };\n    newItem.json['Plataforma individual'] = plataforma;\n    newItems.push(newItem);\n  });\n});\n\nreturn newItems;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        48
+      ],
+      "id": "f58f111d-2121-46ad-ac27-1f19c9dd09ba",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1E0_jF1l_RVGvKdPt7ztZBAgnQDB6QGg6w-JF9i36atY",
+          "mode": "list",
+          "cachedResultName": "publiciones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E0_jF1l_RVGvKdPt7ztZBAgnQDB6QGg6w-JF9i36atY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E0_jF1l_RVGvKdPt7ztZBAgnQDB6QGg6w-JF9i36atY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fecha de publicación": "={{ $('Google Sheets Trigger').item.json[\"Marca temporal\"] }}",
+            "Carrera responsable": "={{ $('Google Sheets Trigger').item.json[\"Carrera responsable \"] }}",
+            "Links": "={{ $('Google Sheets Trigger').item.json[\"Enlaces opcionales 1.\"] }} {{ $('Google Sheets Trigger').item.json[\"Enlaces opcionales 2.\"] }} {{ $('Google Sheets Trigger').item.json[\"Enlaces opcionales 3.\"] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Fecha de publicación",
+              "displayName": "Fecha de publicación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Carrera responsable",
+              "displayName": "Carrera responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Links",
+              "displayName": "Links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        992,
+        352
+      ],
+      "id": "3cd992d3-cd86-4c5a-b40b-28336cd969af",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YVd36RncgUFWpnrQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en web institucional?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        464
+      ],
+      "id": "8d2783e4-5354-44d7-a193-80497cfbdd3c",
+      "name": "WEB"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en Facebook?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        288
+      ],
+      "id": "41a3e74a-c5eb-4a66-8c14-a7ed6af45400",
+      "name": "FACE"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "623c7bdf-3fbf-4ba8-8d44-478ef7bac1b4",
+              "leftValue": "={{ $json['Quiere publicar en Instagram?'] }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        112
+      ],
+      "id": "81292aad-cb21-4c4b-8cd5-c470a7b97227",
+      "name": "INSTA"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        384,
+        208
+      ],
+      "id": "06f01152-5a14-47ab-a2f0-7540859c79bc",
+      "name": "Facebook Graph API"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "INSTA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FACE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "WEB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WEB": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FACE": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSTA": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fc6e8285-3201-4232-98df-d3fe48037643",
+  "meta": {
+    "instanceId": "a09f49ffe4461ad01735c6e4f8118f89c0504a1581066e20f0f29f2851d0d652"
+  },
+  "id": "4GvqiEqVqBqD0pMs",
+  "tags": []
+}
