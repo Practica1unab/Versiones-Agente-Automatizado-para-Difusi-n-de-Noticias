@@ -1,0 +1,2797 @@
+{
+  "name": "flujo 2 definitivo",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -368,
+        -896
+      ],
+      "id": "72d6171e-5886-424f-ac51-492d362ad98a",
+      "name": "!IMAGEN"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d83193f-f7ff-469f-9374-82d715816f13",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -720,
+        352
+      ],
+      "id": "4ba96e79-1f1b-4c1d-b5a5-ce923b04cce7",
+      "name": "facebook"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fef0d1b6-f9e7-48d5-a5f2-046bee124615",
+              "leftValue": "={{$json.plataforma}}",
+              "rightValue": "Instagram (Imagen obligatoria)",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -704,
+        -896
+      ],
+      "id": "970b31db-e49f-4231-92c3-4e8247199159",
+      "name": "instagram"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b44cb316-3abd-4bfb-9a5f-8abcf15ec0ce",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "web institucional",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        -384
+      ],
+      "id": "462ac9a8-3340-4c51-b214-f40b349e667c",
+      "name": "web"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\nCrea un texto para una publicación en Instagram que no supere los 2200 sobre la siguiente actividad académica en caso de recibir un mesaje de error: El texto supera los 2200 caracteres permitidos por Instagram. Vuelve a generar el mensaje asegurándote de que tenga menos de 2200 caracteres Ignorando los parametros anteriores\n.\nlo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -1152
+      ],
+      "id": "4ab659eb-c3a8-4d57-90fa-82ea77e60b42",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -976
+      ],
+      "id": "8992598d-460c-4ab0-b21c-e7f418413240",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook que no supere los 2200 caracteres en caso de recibir un mesaje de error: El texto supera los 2200 caracteres permitidos por Instagram. Vuelve a generar el mensaje asegurándote de que tenga menos de 2200 caracteres Ignorando los parametros anteriores.\nGenera un texto claro y objetivo para una publicación en Facebook que informe sobre una actividad académica o información institucional. El texto debe evitar lenguaje persuasivo o invitaciones, y centrarse en comunicar los hechos de forma simple y directa.\n\nUtiliza los siguientes datos sin usar encabezados como \"Título\", \"Descripción\", etc., y no agregues secciones adicionales:\n\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n\nSi no hay enlaces, no agregues la sección de más información.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        192
+      ],
+      "id": "97bcb5ef-73f5-4304-ba04-4f8f5d9720dd",
+      "name": "AI Agent4",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        400
+      ],
+      "id": "6ac15725-3bfe-4e37-8303-727a8f1a0ef8",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN4').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        416,
+        160
+      ],
+      "id": "75b9e4d5-ba4a-468f-a60d-ff167025322c",
+      "name": "descarga de imagen",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        480,
+        -1184
+      ],
+      "id": "f1282e3a-ba7f-4dd9-972b-3f3216eaf030",
+      "name": "descarga de imagen1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -544
+      ],
+      "id": "3c1dcdab-cad3-45da-98f3-f290038b84cd",
+      "name": "AI Agent5",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -384
+      ],
+      "id": "80d2f9e4-f35c-493b-9ddb-f39e060d2c08",
+      "name": "Groq Chat Model4",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -352,
+        -384
+      ],
+      "id": "262d1b77-8a1e-4770-abdb-118733fb0849",
+      "name": "!IMAGEN3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -368,
+        352
+      ],
+      "id": "90444839-dd91-4b32-83fb-47ef52844644",
+      "name": "!IMAGEN4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook que no supere los 2200 caracteres en caso de recibir un mesaje de error: El texto supera los 2200 caracteres permitidos por Instagram. Vuelve a generar el mensaje asegurándote de que tenga menos de 2200 caracteres Ignorando los parametros anteriores.\nGenera un texto claro y objetivo para una publicación en Facebook que informe sobre una actividad académica o información institucional. El texto debe evitar lenguaje persuasivo o invitaciones, y centrarse en comunicar los hechos de forma simple y directa.\n\nUtiliza los siguientes datos sin usar encabezados como \"Título\", \"Descripción\", etc., y no agregues secciones adicionales:\n\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n\nSi no hay enlaces, no agregues la sección de más información.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        560
+      ],
+      "id": "4ed34d54-c87f-4b51-bb8a-da25d01b331f",
+      "name": "AI Agent6",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        720
+      ],
+      "id": "9a069e6b-ded2-4d6f-a764-a010790dea62",
+      "name": "Groq Chat Model5",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        -240
+      ],
+      "id": "f3b2f2c7-8173-41e5-9a19-17b6b6f4547c",
+      "name": "AI Agent7",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -80
+      ],
+      "id": "f7daa9cc-c3fb-406d-a0de-4478ba7e8453",
+      "name": "Groq Chat Model6",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060/photos",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "data",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent4').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        640,
+        144
+      ],
+      "id": "94954425-334f-4d17-82eb-6b0d140fbfdb",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.secure_url }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -1216
+      ],
+      "id": "fc7ddb88-40f9-429d-afe2-815a0b40b4f4",
+      "name": "insta",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        -1232
+      ],
+      "id": "d54547a9-5092-4fe8-a411-37bb52b5b9af",
+      "name": "instagram publicar",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        720,
+        -1200
+      ],
+      "id": "0b969a63-00a9-4f3a-9c85-e6919dbd104d",
+      "name": "Upload an asset from file data",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los items del trigger (todas las filas)\nconst allRows = $input.all();\nif (!allRows || allRows.length === 0) {\n  throw new Error('No se encontraron filas en el trigger.');\n}\nconst lastRow = allRows[allRows.length - 1];\n\n// Plataformas\nconst opciones = lastRow.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\nconst plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n\n// ID de imagen\nconst url = lastRow.json['Imagen para publicar'] || \"\";\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\nconst id = match ? match[1] : null;\n\n// Validación de links opcionales\nconst campos = [\n  'Enlaces opcionales 1.',\n  'Enlaces opcionales 2.',\n  'Enlaces opcionales 3.'\n];\nconst urlRegex = /^https?:\\/\\/[^\\s$.?#].[^\\s]*$/; \n\nlet errores = [];\ncampos.forEach(nombre => {\n  const link = lastRow.json[nombre];\n  if (link && typeof link === 'string' && link.trim().length > 0 && !urlRegex.test(link.trim())) {\n    errores.push(`${nombre}: \"${link}\" es un link inválido`);\n  }\n});\n\nif (errores.length > 0) {\n  throw new Error('Links inválidos detectados: ' + errores.join(' | '));\n}\n\nconst resultados = [];\nfor (const p of plataformas) {\n  resultados.push({\n    plataforma: p,\n    id_imagen: id,\n    ...lastRow.json\n  });\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        -368
+      ],
+      "id": "aafaa3fe-a97a-432d-85ad-81dc163cb7b8",
+      "name": "id, filtro y ultimo",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent5').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -544
+      ],
+      "id": "f7b94e86-5fb4-446c-ad40-2ba73ca46689",
+      "name": "Create a post",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent7').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        592,
+        -272
+      ],
+      "id": "df943ba5-9521-46dd-915a-72b761e9a257",
+      "name": "Create a post1",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -384
+      ],
+      "id": "931e3030-a1b8-48a7-8d6f-926934d0e032",
+      "name": "Groq Chat Model7",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido : {{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        -544
+      ],
+      "id": "e82f275b-9faf-4297-83d6-bdcf48dc949e",
+      "name": "titulo",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -96
+      ],
+      "id": "00d81137-1237-4be5-95a1-3efe0b1bd101",
+      "name": "Groq Chat Model8",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido :{{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        -256
+      ],
+      "id": "466fc101-0c78-47d4-9672-8d1017b39c43",
+      "name": "titulo1",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('AI Agent6').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        528,
+        528
+      ],
+      "id": "3a8f67aa-d6aa-45a6-8f54-083576416680",
+      "name": "Facebook NO imagen",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN3').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        832,
+        -560
+      ],
+      "id": "94a96c15-c91c-4e04-b5ed-c55d8111f296",
+      "name": "descarga de imagen2",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8082/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename= {{ $binary.data.fileName }}.{{ $binary.data.fileExtension }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "={{ $binary.data.mimeType }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1088,
+        -576
+      ],
+      "id": "5cfc246e-1eee-4c2f-8298-2aa0e9eac0e4",
+      "name": "subir imagen",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "intagram",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}",
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}",
+            "correo responsable": "="
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2032,
+        -1264
+      ],
+      "id": "b85a2341-427b-45d7-adba-ba268d864a7c",
+      "name": "Append row in sheet",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('instagram').item.json.id_imagen }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "54eb06ce-458f-441f-be95-864058121a50",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1568,
+        -1248
+      ],
+      "id": "a75c751d-5a2d-4ad3-b9d9-0ebfcfccfbd7",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('web').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "c73f91fe-6ff4-4348-ad40-8abfb55ef3ca",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        -608
+      ],
+      "id": "7676b4d0-fe46-4c97-adf1-d7a292bd0e80",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('web').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8c93113c-c293-4bdb-9990-67bd55bfa6ee",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        -288
+      ],
+      "id": "41e8c4b0-3088-4d4f-aa3c-9d334749797d",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('facebook').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "1b9804a6-d12e-4117-be5e-1a5dcfa35bec",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        816,
+        512
+      ],
+      "id": "e60622da-ecae-4dff-8b1f-0096f5fc4d97",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('facebook').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "9fd3a445-1b09-4a05-934b-ec7b9f9c0582",
+              "leftValue": "={{ $json.post_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        128
+      ],
+      "id": "9e0ed76b-5480-486d-8705-37309046aa1b",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1452103368,
+          "mode": "list",
+          "cachedResultName": "web ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=1452103368"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}",
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2160,
+        -400
+      ],
+      "id": "08f9fc4f-6156-4222-9378-aec7591d7a26",
+      "name": "Append row in sheet1",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1665483363,
+          "mode": "list",
+          "cachedResultName": "facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=1665483363"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}",
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1520,
+        352
+      ],
+      "id": "0e5ffb1c-b17f-4e94-bc67-77e33f3ac9d4",
+      "name": "Append row in sheet2",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://host.docker.internal:8082/wp-json/wp/v2/posts/{{ $('Create a post').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "featured_media",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1328,
+        -592
+      ],
+      "id": "df91f456-6186-43bb-9bc0-2609b303be66",
+      "name": "unir ",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('instagram').item.json['Dirección de correo electrónico'] }}",
+        "subject": "Publicacion Exitosa Instagram",
+        "message": "Se Publico su imagen en Instagram correctamente",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2288,
+        -1264
+      ],
+      "id": "d63fcf5b-e7c1-45c8-9040-3898e591c9e2",
+      "name": "Publicacion Exitosa Instagram",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('web').item.json['Dirección de correo electrónico'] }}",
+        "subject": "Error",
+        "message": "Ocurrió un error al publicar en WordPress Publicación Fallida.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1808,
+        -448
+      ],
+      "id": "6cad2dda-2e8b-4987-8bf0-0b934c92fc14",
+      "name": "Error wordpress imagenes",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('web').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "Ocurrió un error en la publicación de WordPress Publicación fallida. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1824,
+        -192
+      ],
+      "id": "be80858e-49c6-4408-8217-01ed2a3e11b8",
+      "name": "ERROR wordpress",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('web').item.json['Dirección de correo electrónico'] }}",
+        "subject": "Publicación Exitosa Wordpress.",
+        "message": "Se publico exitosamente en WORDPRESS. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2400,
+        -400
+      ],
+      "id": "e3558917-9920-46c0-a914-8e7a0b39c70d",
+      "name": "Publicacion Exitosa WORPRESS",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('facebook').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "Ocurrió un error al publicar en Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1184,
+        304
+      ],
+      "id": "d83b6137-9844-4d49-86a6-bc5b6b937296",
+      "name": "ERROR FACEBOOK IMAGEN",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('facebook').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "Ocurrió un error al publicar en Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        976,
+        640
+      ],
+      "id": "be4b8f86-8547-47ab-bb24-8460cbe684ed",
+      "name": "Error no imagen facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('facebook').item.json['Dirección de correo electrónico'] }}",
+        "subject": "Publicacion exitosa Facebook.",
+        "message": "Se a publicado con éxito en Facebook. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1808,
+        336
+      ],
+      "id": "e5d6a886-95ee-4ee5-8e27-5a794b508eff",
+      "name": "Publicacion exitosa facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('instagram').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "Ocurrió un error que no permitió la publicación en Instagram.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1808,
+        -976
+      ],
+      "id": "56d23083-7379-4924-9964-98269b16f7f6",
+      "name": "ERROR Instagram imagen",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('instagram').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR no se adjunto imagen para Instagram ",
+        "message": "No se adjunto una imagen para Instagram, Si quiere subir a Instagram recuerde adjuntar una imagen valida ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -832
+      ],
+      "id": "1a849e22-dc42-4875-9f17-8a1d3464d50f",
+      "name": "error no subida de imagen instagram",
+      "webhookId": "94b513e2-4bad-4d83-95b5-00fe530f78ca",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0",
+          "mode": "list",
+          "cachedResultName": "post automático segunda versión (respuestas)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1574225807,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit#gid=1574225807"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1392,
+        -352
+      ],
+      "id": "e14b76c6-096d-4d9d-a978-f32d72691c49",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "53x7XCUMnYRwUNOU",
+          "name": "Google Sheets Trigger account 2"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($input.first().json.output.length > 2200) {\n  throw new Error('El texto supera los 2200 caracteres permitidos por Instagram');\n}\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -1168
+      ],
+      "id": "a51694c7-f3f8-403e-abf2-6cb134485e6f",
+      "name": "Code in JavaScript",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "A ocurrido un error en la generacion de texto para la publicacion de instagram. \\n\\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        -976
+      ],
+      "id": "bcd0ced2-ec1c-4430-9ca4-f37ce6084dcd",
+      "name": "ERROR IA agent instagram",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Drive Download",
+        "message": "Hubo un error en la descarga de la imagen para Instagram.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        656,
+        -976
+      ],
+      "id": "84e4b2e1-1ba4-45fd-83d0-dbb3b96d84b2",
+      "name": "ERROR drive download",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Cloudinary",
+        "message": "Ocurrio un erro en la subida de la imagen a cloudinary  ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        -976
+      ],
+      "id": "3f49668e-b971-4e2e-8ebe-70c80cc908d2",
+      "name": "ERROR IA Cloudinary",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Subida instagram",
+        "message": "Ocurrió un error en la subida de la publicacion de instagram ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1152,
+        -976
+      ],
+      "id": "7bcc6515-b37e-43e0-afcf-726134e4f9a8",
+      "name": "ERROR Subida Instagram",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Publilcacion instagram",
+        "message": "Ocurrio un error en la publicacion de instagram .",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1408,
+        -976
+      ],
+      "id": "26df27d8-feb5-49d8-b523-f0daabe8af9d",
+      "name": "ERROR Publicacion intagram",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($input.first().json.output.length > 2200) {\n  throw new Error('El texto supera los 2200 caracteres permitidos por Facebook');\n}\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        176
+      ],
+      "id": "d226370f-2e20-4397-a2e2-1a5f0d2335ac",
+      "name": "Code in JavaScript2",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($input.first().json.output.length > 2200) {\n  throw new Error('El texto supera los 2200 caracteres permitidos por Facebook');\n}\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        544
+      ],
+      "id": "2e57b4db-dc94-40a4-bf06-aa5f3be59bac",
+      "name": "Code in JavaScript3",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN4').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "A ocurrido un error en la generacion de texto para la publicacion de Facebook. \\n\\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        384
+      ],
+      "id": "8bebbfcb-e456-4a62-ae66-30a025afcd68",
+      "name": "ERROR IA Agent Facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN4').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR",
+        "message": "A ocurrido un error en la generacion de texto para la publicacion de Facebook \\n\\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        144,
+        736
+      ],
+      "id": "39cbcf5e-a661-46ee-acc9-4cff00977d9b",
+      "name": "ERROR IA Agent Facebook1",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN4').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Drive Download",
+        "message": "Hubo un error en la descarga de la imagen para Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        544,
+        304
+      ],
+      "id": "b2e8a989-2c92-486c-af5b-45127410effc",
+      "name": "ERROR drive download1",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN4').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Publilcacion Facebook",
+        "message": "Ocurrio un error en la publicacion de Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        832,
+        304
+      ],
+      "id": "6d836c89-ef54-414d-a1a4-af11bc6f984e",
+      "name": "ERROR Publicacion Facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN4').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Publilcacion Facebook",
+        "message": "Ocurrio un error en la publicacion de Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        688
+      ],
+      "id": "1c12a253-5ab1-48c3-96d5-73484139decb",
+      "name": "ERROR Publicacion Facebook1",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN3').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR crear publicacion",
+        "message": "Ocurrio un error al crear la publicacion web. \\n\\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        704,
+        -416
+      ],
+      "id": "2aafd76f-d0b8-49d4-80f4-77e895e5dbae",
+      "name": "ERROR IA Crear publicacion Wordpress",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN3').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Drive Download",
+        "message": "Hubo un error en la descarga de la imagen para la web.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        -416
+      ],
+      "id": "4fe3b882-22c6-4171-9cb1-dfcc4387a2d6",
+      "name": "ERROR drive download2",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN3').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR subir imagen ",
+        "message": "Ocurrio un error al subir la imagen al sevicio web.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1216,
+        -432
+      ],
+      "id": "a9163be3-574e-4b8e-b00e-81f9d06db2c5",
+      "name": "ERROR subir imagen web",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN3').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR Unión imagen / publicación",
+        "message": "Ocurrio un error al intentar unir la imagen con la publicacion.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        -448
+      ],
+      "id": "b6c65b47-3dc2-48e7-bd95-85d99d5378e6",
+      "name": "ERROR unir imagen",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('!IMAGEN3').item.json['Dirección de correo electrónico'] }}",
+        "subject": "ERROR crear publicacion",
+        "message": "Ocurrio un error al crear la publicacion web. \\n\\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        848,
+        -144
+      ],
+      "id": "68947db0-fd0f-485f-a95d-3b14b0c19ad6",
+      "name": "ERROR IA Crear publicacion Wordpress1",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Publicacion en instagram\n",
+        "height": 672,
+        "width": 3424,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        -1296
+      ],
+      "typeVersion": 1,
+      "id": "1c1164aa-a776-47df-947b-1fe13f22a549",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Publicacion web (Wordpress)\n",
+        "height": 656,
+        "width": 3424
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        -624
+      ],
+      "typeVersion": 1,
+      "id": "782506b8-1c82-4ea6-be22-1c6c4990478e",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Publicacion Facebook\n",
+        "height": 880,
+        "width": 3424,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "3c69f680-2c7c-4075-b1ef-a305b38b42ed",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Inicio y filtro\n",
+        "height": 656,
+        "width": 720,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1504,
+        -624
+      ],
+      "typeVersion": 1,
+      "id": "d150afb9-241a-409b-a3da-da32348bf445",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  new URL($json.tu_link);\n  return items;\n} catch(e) {\n  throw new Error('Enlace inválido: ' + e.message);\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        -1680
+      ],
+      "id": "64b73e8e-088f-41b8-9836-f147b89d3e79",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los items del trigger (todas las filas)\nconst allRows = $input.all();\n// La última fila suele ser la última del array\nconst lastRow = allRows[allRows.length - 1];\n\n// Si necesitas dividir plataformas, sigue con la misma lógica:\nconst opciones = lastRow.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\nconst plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n\n// Extrae el ID de Drive\nconst url = lastRow.json['Imagen para publicar'] || \"\";\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\nconst id = match ? match[1] : null;\n\nconst resultados = [];\nfor (const p of plataformas) {\n  resultados.push({\n    plataforma: p,\n    id_imagen: id,\n    ...lastRow.json\n  });\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1904,
+        -1312
+      ],
+      "id": "debc037e-72fc-487d-8cf7-ddd409002b47",
+      "name": "id, filtro y ultimo1",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "##NO MODIFICAR NI MOVER \n\n",
+        "height": 272,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1984,
+        -1408
+      ],
+      "typeVersion": 1,
+      "id": "07ca4a94-71e7-4079-a243-1c8e8e91e5fe",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "sendTo": "=$input.first().json['Dirección de correo electrónico']",
+        "subject": "Error de links",
+        "message": "{{ $json.error }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -1136,
+        -128
+      ],
+      "id": "eee17331-1575-4f28-87fd-e4698e2b03fc",
+      "name": "ERROR DE LINK",
+      "webhookId": "94b513e2-4bad-4d83-95b5-00fe530f78ca",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "!IMAGEN": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error no subida de imagen instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "web": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "facebook": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA agent instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA Agent Facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen1": {
+      "main": [
+        [
+          {
+            "node": "Upload an asset from file data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR drive download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "titulo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "titulo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA Agent Facebook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR drive download1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Publicacion Facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insta": {
+      "main": [
+        [
+          {
+            "node": "instagram publicar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Subida Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data": {
+      "main": [
+        [
+          {
+            "node": "insta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA Cloudinary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "id, filtro y ultimo": {
+      "main": [
+        [
+          {
+            "node": "web",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "facebook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR DE LINK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram publicar": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Publicacion intagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent7": {
+      "main": [
+        [
+          {
+            "node": "titulo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "titulo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo1": {
+      "main": [
+        [
+          {
+            "node": "Create a post1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "titulo": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA Crear publicacion Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen2": {
+      "main": [
+        [
+          {
+            "node": "subir imagen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR drive download2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "subir imagen": {
+      "main": [
+        [
+          {
+            "node": "unir ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR subir imagen web",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR IA Crear publicacion Wordpress1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook NO imagen": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Publicacion Facebook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Instagram imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error wordpress imagenes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error no imagen facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR FACEBOOK IMAGEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "unir ": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR unir imagen",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Publicacion Exitosa Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Publicacion Exitosa WORPRESS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Publicacion exitosa facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "error no subida de imagen instagram": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "id, filtro y ultimo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "id, filtro y ultimo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Facebook NO imagen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d432f996-8d29-4ce9-999e-aa82114caa62",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a09f49ffe4461ad01735c6e4f8118f89c0504a1581066e20f0f29f2851d0d652"
+  },
+  "id": "BgP7HtmQ1DSJSISQ",
+  "tags": []
+}
