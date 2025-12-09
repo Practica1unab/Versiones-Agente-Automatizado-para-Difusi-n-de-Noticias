@@ -1,0 +1,1426 @@
+{
+  "name": "18",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0",
+          "mode": "list",
+          "cachedResultName": "post automático segunda versión (respuestas)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1574225807,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit#gid=1574225807"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        672
+      ],
+      "id": "41706ed9-0ec1-4a02-8cfb-6b294270471d",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "IIOmkS6CH9FIWkgJ",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        256
+      ],
+      "id": "7dae7c04-f28c-4d25-b2a0-7bdaa7f5983c",
+      "name": "!IMAGEN"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d83193f-f7ff-469f-9374-82d715816f13",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -592,
+        1280
+      ],
+      "id": "2d436ede-1e7d-46c7-b538-79fd64ca9553",
+      "name": "facebook"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fef0d1b6-f9e7-48d5-a5f2-046bee124615",
+              "leftValue": "={{$json.plataforma}}",
+              "rightValue": "Instagram (Imagen obligatoria)",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -560,
+        256
+      ],
+      "id": "be3035d6-d5a5-48bf-b6ac-239d3b483b51",
+      "name": "instagram"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b44cb316-3abd-4bfb-9a5f-8abcf15ec0ce",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "web institucional",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -560,
+        672
+      ],
+      "id": "5e5304b0-6237-450a-827e-d7512e4af814",
+      "name": "web"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Supón que el campo con la URL de Drive es \"url\"\nconst url = $('Google Sheets Trigger').first().json['Imagen para publicar'];\n\n// Extrae el ID usando una expresión regular para el parámetro ?id=\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\n\nreturn {\n  id: match ? match[1] : null\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        64
+      ],
+      "id": "8a1d815b-0731-476a-9f8b-28298bc520e5",
+      "name": "id imagen"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $('Google Sheets Trigger').item.json['Imagen para publicar'] }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f5ce16ae-c135-43fe-a7b6-f97fe996601d",
+              "leftValue": "={{ $('Google Sheets Trigger').item.json['Imagen para publicar'] }}",
+              "rightValue": "FALSE",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2048,
+        144
+      ],
+      "id": "17a2c9bc-44a3-4487-b318-deadac30bba0",
+      "name": "!IMAGEN1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $('Google Sheets Trigger').item.json['Imagen para publicar'] }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f5ce16ae-c135-43fe-a7b6-f97fe996601d",
+              "leftValue": "={{ $('Google Sheets Trigger').item.json['Imagen para publicar'] }}",
+              "rightValue": "FALSE",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2064,
+        400
+      ],
+      "id": "e202a939-34ff-4815-aaae-1760b9eb0666",
+      "name": "!IMAGEN2"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -2240,
+        400
+      ],
+      "id": "9d5744ce-3c1a-4f9b-8775-600b9ac059f7",
+      "name": "Download file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -2240,
+        544
+      ],
+      "id": "dac6216e-d823-4fb9-afbb-4addcd7ea92f",
+      "name": "Download file2",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Instagram sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "64a8ecf0-624d-40a1-84a2-6feb8c888b3e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        0,
+        144
+      ],
+      "id": "d933f1ee-6fd2-4540-a2f3-21e8f3a6c611",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const resultados = [];\nfor (const item of $input.all()) {\n  const opciones = item.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\n  const plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n  for (const p of plataformas) {\n    resultados.push({ plataforma: p, ...item.json });\n  }\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1408,
+        1360
+      ],
+      "id": "38b69a92-a206-486e-9d46-a265244280ba",
+      "name": "separar plataformas"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook sobre la siguiente actividad académica. lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1792,
+        96
+      ],
+      "id": "7b05a97e-aa15-4af8-8bc0-a7aa079167c2",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        320
+      ],
+      "id": "2f4fcec2-f567-41ff-8958-4dcbd027d6fa",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $json['Titulo de la Actividad'] }}\nDescripción: {{ $json['Descripción de la Actividad '] }}\nFecha y lugar: {{ $json.Fecha }} {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nAdjunta la imagen: {{ $json['Archivos adjuntos '] }}\nMás información: {{ $json['Enlaces Opcionales 1'] }}{{ $json['Enlaces Opcionales 2'] }}{{ $json['Enlaces Opcionales 3'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1968,
+        1312
+      ],
+      "id": "d5aab5c2-de82-4b80-8fa1-fe3ef5818fa8",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        1456
+      ],
+      "id": "042c3ce9-679c-4669-b8a4-40c5598524ba",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Supón que el campo con la URL de Drive es \"url\"\nconst url = $('Google Sheets Trigger').first().json['Imagen para publicar'];\n\n// Extrae el ID usando una expresión regular para el parámetro ?id=\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\n\nreturn {\n  id: match ? match[1] : null\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1632,
+        1360
+      ],
+      "id": "af47aec9-ed85-41f6-a4ec-10f0f54bf9ef",
+      "name": "id imagen1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Genera un texto claro y objetivo para una publicación en Facebook que informe sobre una actividad académica o información institucional. El texto debe evitar lenguaje persuasivo o invitaciones, y centrarse en comunicar los hechos de forma simple y directa.\n\nUtiliza los siguientes datos sin usar encabezados como \"Título\", \"Descripción\", etc., y no agregues secciones adicionales:\n\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n\nSi no hay enlaces, no agregues la sección de más información.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        1120
+      ],
+      "id": "7fcb638c-01f1-456b-a93d-f7a1367435e0",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        16,
+        1280
+      ],
+      "id": "db35f379-5877-483d-acf9-79fa49c93471",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN4').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        320,
+        1120
+      ],
+      "id": "03d545eb-5825-4563-bd97-bae8b4231902",
+      "name": "descarga de imagen",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        336,
+        0
+      ],
+      "id": "f3d8a2e0-2480-40fd-92a8-5a7df51a04a4",
+      "name": "descarga de imagen1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Supón que el campo con la URL de Drive es \"url\"\nconst url = $('Google Sheets Trigger').first().json['Imagen para publicar'];\n\n// Extrae el ID usando una expresión regular para el parámetro ?id=\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\n\nreturn {\n  id: match ? match[1] : null\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1072,
+        48
+      ],
+      "id": "7c55f614-3bae-4187-9c0b-b63cf32d849d",
+      "name": "id imagen2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        464
+      ],
+      "id": "0ae53065-b7d2-4c4c-9538-4c0d27026e3b",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        32,
+        624
+      ],
+      "id": "87e73c38-2c01-44df-a366-fbe85fb623e4",
+      "name": "Groq Chat Model4",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        672
+      ],
+      "id": "5bef0dc3-fbd8-4a4d-859f-af646d5db400",
+      "name": "!IMAGEN3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        1280
+      ],
+      "id": "e4d30b69-5c07-47c7-9e93-9a30219d0bbc",
+      "name": "!IMAGEN4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook sobre la siguiente actividad académica. lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $('Google Sheets Trigger').item.json['Titulo de la actividad'] }}\nDescripción: {{ $('Google Sheets Trigger').item.json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $('Google Sheets Trigger').item.json['Fecha(mm/dd/yyyy)'] }}{{ $('Google Sheets Trigger').item.json['Ubicación'] }}\nOrganiza: {{ $('Google Sheets Trigger').item.json['Carrera responsable '] }}\nMás información: {{ $('Google Sheets Trigger').item.json['Enlaces opcionales 1.'] }}{{ $('Google Sheets Trigger').item.json['Enlaces opcionales 2.'] }}{{ $('Google Sheets Trigger').item.json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        1488
+      ],
+      "id": "a2977cb9-fa43-4e5d-b6f3-4aad52b2eae6",
+      "name": "AI Agent6"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        16,
+        1648
+      ],
+      "id": "4149f55f-dbe8-471e-a056-c748630b033c",
+      "name": "Groq Chat Model5",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        768
+      ],
+      "id": "071c29c4-7d59-4124-890d-532d49ec595d",
+      "name": "AI Agent7"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        16,
+        928
+      ],
+      "id": "2dc26976-fcef-4242-9dca-e73b61f44462",
+      "name": "Groq Chat Model6",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060/photos",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent4').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        544,
+        1120
+      ],
+      "id": "7afb89f8-93b4-4327-b717-90f2865b92d3",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.secure_url }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        816,
+        0
+      ],
+      "id": "59f4c0bc-6702-42ae-bf9f-6dd7be6dec66",
+      "name": "insta",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        0
+      ],
+      "id": "92f4c945-b50e-4ee3-98b9-e4987ffe15e9",
+      "name": "instagram publicar",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        576,
+        0
+      ],
+      "id": "c98cdac8-4391-4c6a-8ae7-59c893a6dc14",
+      "name": "Upload an asset from file data",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const resultados = [];\nfor (const item of $input.all()) {\n  const opciones = item.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\n  const plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n\n  // Obtén la URL de la imagen de Google Drive\n  const url = item.json['Imagen para publicar'] || \"\";\n  // Extrae el ID usando la expresión regular para ?id=\n  const match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\n  const id = match ? match[1] : null;\n\n  for (const p of plataformas) {\n    resultados.push({ \n      plataforma: p, \n      id_imagen: id,       // Se agrega el ID extraído aquí\n      ...item.json         // Resto de los datos de la fila original\n    });\n  }\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1888,
+        1104
+      ],
+      "id": "fa4bc5fc-99aa-479a-bd02-1baa6e5e6fb3",
+      "name": "id y filtro"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los items del trigger (todas las filas)\nconst allRows = $input.all();\n// La última fila suele ser la última del array\nconst lastRow = allRows[allRows.length - 1];\n\n// Si necesitas dividir plataformas, sigue con la misma lógica:\nconst opciones = lastRow.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\nconst plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n\n// Extrae el ID de Drive\nconst url = lastRow.json['Imagen para publicar'] || \"\";\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\nconst id = match ? match[1] : null;\n\nconst resultados = [];\nfor (const p of plataformas) {\n  resultados.push({\n    plataforma: p,\n    id_imagen: id,\n    ...lastRow.json\n  });\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1008,
+        672
+      ],
+      "id": "2a7ae85c-395b-458d-8315-f123251347ac",
+      "name": "id, filtro y ultimo"
+    },
+    {
+      "parameters": {
+        "title": "{{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent5').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        704,
+        464
+      ],
+      "id": "791964d1-0310-4146-91dc-ee8a2dc0105a",
+      "name": "Create a post",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent7').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        672,
+        768
+      ],
+      "id": "329fc4a0-fcef-4d0e-96b1-76def4ad4469",
+      "name": "Create a post1",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        368,
+        624
+      ],
+      "id": "c82bd463-e760-4cc5-b433-765af688139f",
+      "name": "Groq Chat Model7",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido : {{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        464
+      ],
+      "id": "0846ee1d-f190-4d27-89ed-df4fbf1d4b88",
+      "name": "titulo"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        352,
+        912
+      ],
+      "id": "d923b09b-f349-4e9e-bd7b-125f5435fb5a",
+      "name": "Groq Chat Model8",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido :{{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        768
+      ],
+      "id": "eaa0f9ca-7e08-4d72-aef8-705a40b2ce42",
+      "name": "titulo1"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('AI Agent6').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        368,
+        1488
+      ],
+      "id": "da5894a5-eedf-4e39-9dfb-0bc0af71a1c5",
+      "name": "Facebook NO imagen",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        320
+      ],
+      "id": "5d21d5c7-d199-418d-b422-9ad6d7a7f975",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        912,
+        288
+      ],
+      "id": "32d51860-21fc-4383-bb06-cfebbf55434d",
+      "name": "Upload an asset from file data1",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "id, filtro y ultimo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "web": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "facebook": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "id imagen1": {
+      "main": [
+        [
+          {
+            "node": "separar plataformas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen1": {
+      "main": [
+        [
+          {
+            "node": "Upload an asset from file data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "titulo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Facebook NO imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insta": {
+      "main": [
+        [
+          {
+            "node": "instagram publicar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data": {
+      "main": [
+        [
+          {
+            "node": "insta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "id, filtro y ultimo": {
+      "main": [
+        [
+          {
+            "node": "web",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent7": {
+      "main": [
+        [
+          {
+            "node": "titulo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo1": {
+      "main": [
+        [
+          {
+            "node": "Create a post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e58452c1-d53e-4746-84e4-70ecf3e515cc",
+  "meta": {
+    "instanceId": "a09f49ffe4461ad01735c6e4f8118f89c0504a1581066e20f0f29f2851d0d652"
+  },
+  "id": "KSN9QziM6Kmig0aF",
+  "tags": []
+}
