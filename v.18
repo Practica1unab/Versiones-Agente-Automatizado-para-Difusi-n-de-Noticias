@@ -1,0 +1,2469 @@
+{
+  "name": "23",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0",
+          "mode": "list",
+          "cachedResultName": "post automático segunda versión (respuestas)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1574225807,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X809TIqGyjmZtxNQ55x1ZkAxmzxEwDDVaB5hyl0NHl0/edit#gid=1574225807"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        1392
+      ],
+      "id": "934d2d20-ab23-4c3c-8d28-5602c2877012",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "53x7XCUMnYRwUNOU",
+          "name": "Google Sheets Trigger account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        960
+      ],
+      "id": "29ac4a41-9a98-4014-b9b7-4b748c412725",
+      "name": "!IMAGEN"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d83193f-f7ff-469f-9374-82d715816f13",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "Facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        2000
+      ],
+      "id": "d2960c02-6728-4ed8-9260-f9a8b86456eb",
+      "name": "facebook"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fef0d1b6-f9e7-48d5-a5f2-046bee124615",
+              "leftValue": "={{$json.plataforma}}",
+              "rightValue": "Instagram (Imagen obligatoria)",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        960
+      ],
+      "id": "95d6a732-ee30-42e4-883e-f61df5e6da69",
+      "name": "instagram"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b44cb316-3abd-4bfb-9a5f-8abcf15ec0ce",
+              "leftValue": "={{ $json.plataforma }}",
+              "rightValue": "web institucional",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        1392
+      ],
+      "id": "6258d75b-df3b-4e7a-b70d-02654685ee9d",
+      "name": "web"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Instagram sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        992,
+        704
+      ],
+      "id": "a73284c0-ddc2-4f29-a0cb-57f26f963acb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        992,
+        880
+      ],
+      "id": "751893b5-0631-426c-a9de-4086206e3af8",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Genera un texto claro y objetivo para una publicación en Facebook que informe sobre una actividad académica o información institucional. El texto debe evitar lenguaje persuasivo o invitaciones, y centrarse en comunicar los hechos de forma simple y directa.\n\nUtiliza los siguientes datos sin usar encabezados como \"Título\", \"Descripción\", etc., y no agregues secciones adicionales:\n\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n\nSi no hay enlaces, no agregues la sección de más información.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        992,
+        1840
+      ],
+      "id": "6991f555-5d39-42af-86e6-fbbd17f7b0d7",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        992,
+        2016
+      ],
+      "id": "eca173ef-6258-47ee-a46f-c1ebbfd5e885",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN4').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1296,
+        1840
+      ],
+      "id": "c790666d-bcc5-4415-a630-c0bf1b47b9cc",
+      "name": "descarga de imagen",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1328,
+        704
+      ],
+      "id": "7c6a5a59-fa41-4745-8bfb-1ffdf495f6c2",
+      "name": "descarga de imagen1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1024,
+        1216
+      ],
+      "id": "bf039d24-f2b5-4df7-9a68-a3109a6c51fc",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        1376
+      ],
+      "id": "56524626-67b9-490c-84e4-f7c838923d54",
+      "name": "Groq Chat Model4",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        1392
+      ],
+      "id": "d63936ca-b4cd-4a11-af25-e7fa5d339d3b",
+      "name": "!IMAGEN3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4cce5e4c-ab9c-4880-8bef-a167744c4d83",
+              "leftValue": "={{ $json.id_imagen }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        2000
+      ],
+      "id": "a54173a3-0123-4cd8-b73c-6d626227848e",
+      "name": "!IMAGEN4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en Facebook sobre la siguiente actividad académica. lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad: {{ $('Google Sheets Trigger').item.json['Titulo de la actividad'] }}\nDescripción: {{ $('Google Sheets Trigger').item.json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $('Google Sheets Trigger').item.json['Fecha(mm/dd/yyyy)'] }}{{ $('Google Sheets Trigger').item.json['Ubicación'] }}\nOrganiza: {{ $('Google Sheets Trigger').item.json['Carrera responsable '] }}\nMás información: {{ $('Google Sheets Trigger').item.json['Enlaces opcionales 1.'] }}{{ $('Google Sheets Trigger').item.json['Enlaces opcionales 2.'] }}{{ $('Google Sheets Trigger').item.json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        992,
+        2208
+      ],
+      "id": "e6d387aa-3af7-4059-b75b-b4298a296a44",
+      "name": "AI Agent6"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        992,
+        2368
+      ],
+      "id": "0ccfb091-afda-4177-ac21-6f5b2c68a208",
+      "name": "Groq Chat Model5",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Crea un texto para una publicación en una pagina web academica sobre la siguiente actividad académica.lo entregado abajo es lo que debes utilizar para hacer el texto\nTítulo de la actividad:{{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha y lugar: {{ $json['Fecha(mm/dd/yyyy)'] }}{{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nMás información: {{ $json['Enlaces opcionales 1.'] }}{{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}\n(En caso de no adjuntar links no agregar seccion mas informacion)",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        1520
+      ],
+      "id": "dafe0344-a9a1-49ce-ac1d-b9f8925361e4",
+      "name": "AI Agent7"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1008,
+        1680
+      ],
+      "id": "5cf9e433-c60f-441d-b545-a925fd4fd49e",
+      "name": "Groq Chat Model6",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060/photos",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "data",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent4').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        1840
+      ],
+      "id": "4e1e2191-3a08-4ef7-9279-33c6885492b6",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.secure_url }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $('AI Agent').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        704
+      ],
+      "id": "4ae8bb40-d9e9-4a46-a714-e9d74124007c",
+      "name": "insta",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": " 17841477439934776",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        2064,
+        704
+      ],
+      "id": "ba29a289-d40d-477b-8e9a-b77c8d63671e",
+      "name": "instagram publicar",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "8VERv1ZczhD7oCao",
+          "name": "instagram"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        704
+      ],
+      "id": "c2eb68f9-ee27-4971-99e5-af40167695e6",
+      "name": "Upload an asset from file data",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén todos los items del trigger (todas las filas)\nconst allRows = $input.all();\n// La última fila suele ser la última del array\nconst lastRow = allRows[allRows.length - 1];\n\n// Si necesitas dividir plataformas, sigue con la misma lógica:\nconst opciones = lastRow.json['Donde quiere subir(Hasta 3 opciones)'] || \"\";\nconst plataformas = opciones.split(\",\").map(e => e.trim()).filter(e => e);\n\n// Extrae el ID de Drive\nconst url = lastRow.json['Imagen para publicar'] || \"\";\nconst match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);\nconst id = match ? match[1] : null;\n\nconst resultados = [];\nfor (const p of plataformas) {\n  resultados.push({\n    plataforma: p,\n    id_imagen: id,\n    ...lastRow.json\n  });\n}\nreturn resultados;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        1392
+      ],
+      "id": "e07fffb4-1b28-4f55-840b-c4537b1e9236",
+      "name": "id, filtro y ultimo"
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent5').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        1216
+      ],
+      "id": "53a5a51a-08db-4204-ae67-d6b4f1badeb5",
+      "name": "Create a post",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output }}",
+        "additionalFields": {
+          "content": "={{ $('AI Agent7').item.json.output }}",
+          "status": "publish"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        1520
+      ],
+      "id": "ca963a22-0ee3-44be-9bc4-7008455f2377",
+      "name": "Create a post1",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        1376
+      ],
+      "id": "c227030d-8f13-409b-9abd-36f1eec3253b",
+      "name": "Groq Chat Model7",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido : {{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        1216
+      ],
+      "id": "ef88ee56-a3a6-4249-9ebf-c1d995ab7449",
+      "name": "titulo"
+    },
+    {
+      "parameters": {
+        "model": "groq/compound-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        1664
+      ],
+      "id": "e5fa662a-fe47-4ea4-835e-0b8868798a4f",
+      "name": "Groq Chat Model8",
+      "credentials": {
+        "groqApi": {
+          "id": "QYBuuNa085JNeNlw",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=crea un titulo para esta publicacion para una red universitaria segun este contenido :{{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        1520
+      ],
+      "id": "7405991e-1484-42c4-86c2-30d9f44d2fa5",
+      "name": "titulo1"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "/783729494834060",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('AI Agent6').item.json.output }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        2208
+      ],
+      "id": "28ba21ff-2e73-4315-8cce-34694edb41df",
+      "name": "Facebook NO imagen",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "HRcWxPIAPNhTpiJv",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('!IMAGEN3').item.json.id_imagen }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1952,
+        1216
+      ],
+      "id": "47ff60a8-0708-44bf-84da-ff3099422df9",
+      "name": "descarga de imagen2",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iSsJZh9wgiFw0ZRw",
+          "name": "Google Drive account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8082/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename= {{ $binary.data.fileName }}.{{ $binary.data.fileExtension }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "={{ $binary.data.mimeType }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2208,
+        1216
+      ],
+      "id": "3355d5ca-4421-4688-89c7-b567d494deac",
+      "name": "subir imagen",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6a81f056-d0df-4cc9-8ee7-c74b3cf0e7d0",
+      "name": "Upload an asset from file data1",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.secure_url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "cloudinaryApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "b518022b-6e39-4a38-85ec-c5e56038d83f",
+      "name": "HTTP Request",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "Vj0zHclC5qlKBJfH",
+          "name": "Cloudinary account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8082/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        0
+      ],
+      "id": "99dbbfd3-0218-4c63-9e71-5f3a5de5fa92",
+      "name": "HTTP Request2",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8082/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename= {{ $binary.data.fileName }}.{{ $binary.data.fileExtension }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "={{ $binary.data.mimeType }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        224
+      ],
+      "id": "11b8f26e-c158-4922-bebe-569a6c5de60f",
+      "name": "HTTP Request4",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "practica1.unab2025@gmail.com",
+        "to": "dhylan.lucas@gmail.com",
+        "subject": "prueba 2",
+        "html": "probando",
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-resend.resend",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        144
+      ],
+      "id": "ed1a64a9-d719-4b61-9cbc-bf223e6e96e7",
+      "name": "Send an email",
+      "credentials": {
+        "resendApi": {
+          "id": "FYKpR9CqOIIuTaqS",
+          "name": "resend"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        176
+      ],
+      "id": "03d88a70-5bb7-44f7-a097-d4b5d93036b7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "intagram",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}",
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}",
+            "correo responsable": "="
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3248,
+        736
+      ],
+      "id": "e1567e54-f8c6-4367-b996-7be852ab45ea",
+      "name": "Append row in sheet",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('instagram').item.json.id_imagen }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "54eb06ce-458f-441f-be95-864058121a50",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2416,
+        704
+      ],
+      "id": "779ac4ce-873e-4f41-bffe-42e77c9df423",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('web').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "c73f91fe-6ff4-4348-ad40-8abfb55ef3ca",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2736,
+        1216
+      ],
+      "id": "51d74eca-a23a-47fe-abfb-5cf70f812b32",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $('web').item.json.plataforma }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8c93113c-c293-4bdb-9990-67bd55bfa6ee",
+              "leftValue": "={{ $json.code }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2720,
+        1520
+      ],
+      "id": "c010213c-054b-49bb-8f67-f18e4eef440c",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "1b9804a6-d12e-4117-be5e-1a5dcfa35bec",
+              "leftValue": "={{ $json.code }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        2192
+      ],
+      "id": "71178f6b-0553-4a42-b8b6-2f1eed9ef9bb",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4380c5d3-479e-4cf6-aad0-ff023619fc71",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "9fd3a445-1b09-4a05-934b-ec7b9f9c0582",
+              "leftValue": "={{ $json.code }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        1840
+      ],
+      "id": "04375134-8686-4d9a-bfad-10d293871bb8",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1452103368,
+          "mode": "list",
+          "cachedResultName": "web ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=1452103368"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}",
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3280,
+        1360
+      ],
+      "id": "e83094d6-b200-4999-94d1-b38ced44b0c8",
+      "name": "Append row in sheet1",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg",
+          "mode": "list",
+          "cachedResultName": "publicaciones exitosas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1665483363,
+          "mode": "list",
+          "cachedResultName": "facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PlqxpmC9p-pTa7ig0enxrjbEzB3m8qN_rTf3Sqz8oRg/edit#gid=1665483363"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Titulo de la actividad ": "={{ $('id, filtro y ultimo').item.json['Titulo de la actividad'] }}",
+            "Fecha de publicacion ": "={{ $('id, filtro y ultimo').item.json['Marca temporal'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Titulo de la actividad ",
+              "displayName": "Titulo de la actividad ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha de publicacion ",
+              "displayName": "Fecha de publicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo responsable",
+              "displayName": "correo responsable",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2816,
+        2000
+      ],
+      "id": "67c57778-487f-4ccf-8a54-ca69ffed18b0",
+      "name": "Append row in sheet2",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uJFK2T0SHbebJYGM",
+          "name": "Google Sheets account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://host.docker.internal:8082/wp-json/wp/v2/posts/{{ $('Create a post').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "featured_media",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2448,
+        1216
+      ],
+      "id": "fdfa3a74-7b4d-4085-8134-cfa67680336a",
+      "name": "unir ",
+      "credentials": {
+        "wordpressApi": {
+          "id": "sXTVZrnSKdFvQ5ZD",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "dhylan.lucas@gmail.com",
+        "subject": "ERROR no se adjunto imagen para Instagram ",
+        "message": "No se adjunto una imagen para Instagram, Si quiere subir a Instagram recuerde adjuntar una imagen valida ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1056,
+        1024
+      ],
+      "id": "d1272b03-c836-44df-9245-998245ab0a6e",
+      "name": "erro no subida de imagen instagram",
+      "webhookId": "94b513e2-4bad-4d83-95b5-00fe530f78ca",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "dhylan.lucas@gmail.com",
+        "subject": "ERROR",
+        "message": "Ocurrió un error en la publicación de Instagram",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2688,
+        784
+      ],
+      "id": "185f7485-1611-42e3-89b4-5769a58ac35c",
+      "name": "ERROR Instagram imagen",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "Publicacion Exitosa",
+        "message": "Se Publico su imagen en Instagram correctamente",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3472,
+        736
+      ],
+      "id": "1f27d663-0473-4280-86e2-641dbf9337f7",
+      "name": "Publicacion Exitosa Instagram",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "Error",
+        "message": "Ocurrió un error al publicar en WordPress Publicación Fallida.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2928,
+        1280
+      ],
+      "id": "d9bd5f7f-5d24-46fe-bed3-3ea810f274c1",
+      "name": "Error wordpress imagenes",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "ERROR",
+        "message": "Ocurrió un error en la publicación de WordPress Publicación fallida. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2928,
+        1584
+      ],
+      "id": "cd50adeb-ac70-49dd-9eb1-479057b45cd0",
+      "name": "ERROR wordpress",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "Publicación Exitosa.",
+        "message": "Se publico exitosamente en WORDPRESS. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3520,
+        1360
+      ],
+      "id": "3a0bf7e7-9de0-44fb-adbb-f6b2df5761e1",
+      "name": "Publicacion Exitosa WORPRESS",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "ERROR",
+        "message": "Ocurrió un error al publicar en Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2176,
+        1920
+      ],
+      "id": "1ddaafa5-bff4-4d71-a92f-492597e3a971",
+      "name": "ERROR FACEBOOK IMAGEN",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "ERROR",
+        "message": "Ocurrió un error al publicar en Facebook.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2160,
+        2272
+      ],
+      "id": "853fd6a9-f388-4bfc-84eb-811e0fac59e9",
+      "name": "Error no imagen facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "Publicacion exitosa",
+        "message": "Se a publicado con éxito en Facebook. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3104,
+        1984
+      ],
+      "id": "9d3102bd-6ffb-41fe-97aa-ba71c4e37d4a",
+      "name": "Publicacion exitosa facebook",
+      "webhookId": "5fa627cb-bf05-40eb-bf82-5d6eda291635",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YSUHfPsxXOOvwtyC",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Upload an asset from file data1": [
+      {
+        "json": {
+          "asset_id": "48db07b91a877d75c4089f6e4c102f74",
+          "public_id": "wlzcivmhz3gwfra1zut3",
+          "version": 1762876921,
+          "version_id": "f03123e4e16aa96b552b381b55953e4a",
+          "signature": "89ca63be9d6548eef843a65f51dabb58f8e30f0d",
+          "width": 557,
+          "height": 359,
+          "format": "jpg",
+          "resource_type": "image",
+          "created_at": "2025-11-11T16:02:01Z",
+          "tags": [],
+          "bytes": 27954,
+          "type": "upload",
+          "etag": "1fdb5850c716b6c96ff261ada72b15f8",
+          "placeholder": false,
+          "url": "http://res.cloudinary.com/dcsfxymol/image/upload/v1762876921/wlzcivmhz3gwfra1zut3.jpg",
+          "secure_url": "https://res.cloudinary.com/dcsfxymol/image/upload/v1762876921/wlzcivmhz3gwfra1zut3.jpg",
+          "asset_folder": "",
+          "display_name": "wlzcivmhz3gwfra1zut3",
+          "original_filename": "IMG_7695 - Dhylan Pizarro",
+          "original_extension": "jpeg",
+          "api_key": "234694392885281"
+        }
+      }
+    ],
+    "HTTP Request4": [
+      {
+        "json": {
+          "id": 20,
+          "date": "2025-11-11T13:03:00",
+          "date_gmt": "2025-11-11T16:03:00",
+          "guid": {
+            "rendered": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg",
+            "raw": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg"
+          },
+          "modified": "2025-11-11T13:03:00",
+          "modified_gmt": "2025-11-11T16:03:00",
+          "slug": "img_7695-dhylan-pizarro-3-jpeg-3",
+          "status": "inherit",
+          "type": "attachment",
+          "link": "http://localhost:8082/img_7695-dhylan-pizarro-3-jpeg-3/",
+          "title": {
+            "raw": "IMG_7695-Dhylan-Pizarro-3.jpeg-3",
+            "rendered": "IMG_7695-Dhylan-Pizarro-3.jpeg-3"
+          },
+          "author": 1,
+          "featured_media": 0,
+          "comment_status": "open",
+          "ping_status": "closed",
+          "template": "",
+          "meta": [],
+          "permalink_template": "http://localhost:8082/?attachment_id=20",
+          "generated_slug": "img_7695-dhylan-pizarro-3-jpeg-3",
+          "class_list": [
+            "post-20",
+            "attachment",
+            "type-attachment",
+            "status-inherit",
+            "hentry"
+          ],
+          "description": {
+            "raw": "",
+            "rendered": "<p class=\"attachment\"><a href='http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg'><img loading=\"lazy\" decoding=\"async\" width=\"300\" height=\"193\" src=\"http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3-300x193.jpeg\" class=\"attachment-medium size-medium\" alt=\"\" srcset=\"http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3-300x193.jpeg 300w, http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg 557w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /></a></p>\n"
+          },
+          "caption": {
+            "raw": "",
+            "rendered": ""
+          },
+          "alt_text": "",
+          "media_type": "image",
+          "mime_type": "image/jpeg",
+          "media_details": {
+            "width": 557,
+            "height": 359,
+            "file": "2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg",
+            "filesize": 27954,
+            "sizes": {
+              "medium": {
+                "file": "IMG_7695-Dhylan-Pizarro-3.jpeg-3-300x193.jpeg",
+                "width": 300,
+                "height": 193,
+                "filesize": 19457,
+                "mime_type": "image/jpeg",
+                "source_url": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3-300x193.jpeg"
+              },
+              "thumbnail": {
+                "file": "IMG_7695-Dhylan-Pizarro-3.jpeg-3-150x150.jpeg",
+                "width": 150,
+                "height": 150,
+                "filesize": 13877,
+                "mime_type": "image/jpeg",
+                "source_url": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3-150x150.jpeg"
+              },
+              "full": {
+                "file": "IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg",
+                "width": 557,
+                "height": 359,
+                "mime_type": "image/jpeg",
+                "source_url": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg"
+              }
+            },
+            "image_meta": {
+              "aperture": "0",
+              "credit": "",
+              "camera": "",
+              "caption": "",
+              "created_timestamp": "0",
+              "copyright": "",
+              "focal_length": "0",
+              "iso": "0",
+              "shutter_speed": "0",
+              "title": "",
+              "orientation": "0",
+              "keywords": []
+            }
+          },
+          "post": null,
+          "source_url": "http://localhost:8082/wp-content/uploads/2025/11/IMG_7695-Dhylan-Pizarro-3.jpeg-3.jpeg",
+          "missing_image_sizes": [],
+          "_links": {
+            "self": [
+              {
+                "href": "http://localhost:8082/wp-json/wp/v2/media/20",
+                "targetHints": {
+                  "allow": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "PATCH",
+                    "DELETE"
+                  ]
+                }
+              }
+            ],
+            "collection": [
+              {
+                "href": "http://localhost:8082/wp-json/wp/v2/media"
+              }
+            ],
+            "about": [
+              {
+                "href": "http://localhost:8082/wp-json/wp/v2/types/attachment"
+              }
+            ],
+            "author": [
+              {
+                "embeddable": true,
+                "href": "http://localhost:8082/wp-json/wp/v2/users/1"
+              }
+            ],
+            "replies": [
+              {
+                "embeddable": true,
+                "href": "http://localhost:8082/wp-json/wp/v2/comments?post=20"
+              }
+            ],
+            "wp:action-unfiltered-html": [
+              {
+                "href": "http://localhost:8082/wp-json/wp/v2/media/20"
+              }
+            ],
+            "wp:action-assign-author": [
+              {
+                "href": "http://localhost:8082/wp-json/wp/v2/media/20"
+              }
+            ],
+            "curies": [
+              {
+                "name": "wp",
+                "href": "https://api.w.org/{rel}",
+                "templated": true
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "id, filtro y ultimo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "erro no subida de imagen instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "web": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "facebook": {
+      "main": [
+        [
+          {
+            "node": "!IMAGEN4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen1": {
+      "main": [
+        [
+          {
+            "node": "Upload an asset from file data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "titulo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "!IMAGEN4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Facebook NO imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insta": {
+      "main": [
+        [
+          {
+            "node": "instagram publicar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "instagram publicar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data": {
+      "main": [
+        [
+          {
+            "node": "insta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "id, filtro y ultimo": {
+      "main": [
+        [
+          {
+            "node": "web",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram publicar": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent7": {
+      "main": [
+        [
+          {
+            "node": "titulo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "titulo1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo1": {
+      "main": [
+        [
+          {
+            "node": "Create a post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post": {
+      "main": [
+        [
+          {
+            "node": "descarga de imagen2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "descarga de imagen2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "descarga de imagen2": {
+      "main": [
+        [
+          {
+            "node": "subir imagen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "subir imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "subir imagen": {
+      "main": [
+        [
+          {
+            "node": "unir ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "unir ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send an email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook NO imagen": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR Instagram imagen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error wordpress imagenes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error no imagen facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ERROR FACEBOOK IMAGEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "unir ": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Publicacion Exitosa Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Publicacion Exitosa WORPRESS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Publicacion exitosa facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8dd9af7d-0a89-42b9-b425-ca14aab8c65b",
+  "meta": {
+    "instanceId": "a09f49ffe4461ad01735c6e4f8118f89c0504a1581066e20f0f29f2851d0d652"
+  },
+  "id": "h3rdZGqcacMRck4v",
+  "tags": []
+}
