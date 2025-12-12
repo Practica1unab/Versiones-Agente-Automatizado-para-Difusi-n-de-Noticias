@@ -1,5 +1,5 @@
 {
-  "name": "webhook",
+  "name": "webhook definitivo",
   "nodes": [
     {
       "parameters": {
@@ -140,7 +140,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Redacta una publicación para una página de Facebook institucional sobre la siguiente actividad académica.\n\nEl texto debe ser claro, directo, inclusivo y atractivo para estudiantes, docentes y comunidad general.\n\nNO uses emojis ni símbolos especiales.\n\nEstructura sugerida:\n\nComienza destacando el título.\n\nEn un primer párrafo breve, explica de qué trata la actividad y para quién es relevante.\n\nAñade detalles: fecha, lugar, quién organiza y beneficios para los asistentes.\n\nSi hay enlaces disponibles, agrégalos como texto aparte bajo “Más información:” y enlista los links (uno por línea).\n\nFinaliza con una invitación directa a participar o a dejar consultas debajo de la publicación.\n\nRestricciones:\n\nNo incluyas hashtags.\n\nNo repitas información extra si los campos están vacíos.\n\nUsa saltos de línea para separar bloques y facilitar la lectura.\n\nVariables para insertar:\n\nTítulo: {{ $json['titulo de la actividad'] }}\n\nDescripción: {{ $json['descripción'] }}\n\nFecha: {{ $json.fecha }}\n\nLugar: {{ $json['ubicación '] }}\n\nOrganiza: {{ $json['carrera responsable'] }}\n\nEnlaces opcionales: {{ $json['Enlaces opcionales 1.'] }} {{ $json['Enlaces opcionales .2'] }}{{ $json['Enlaces opcionales .3'] }}",
+        "text": "=Redacta una publicación para una página de Facebook institucional sobre la siguiente actividad académica.\n\nEl texto debe ser claro, directo, inclusivo y atractivo para estudiantes, docentes y comunidad general.\n\nNO uses emojis ni símbolos especiales.\n\nEstructura sugerida:\n\nComienza destacando el título.\n\nEn un primer párrafo breve, explica de qué trata la actividad y para quién es relevante.\n\nAñade detalles: fecha, lugar, quién organiza y beneficios para los asistentes.\n\nSi hay enlaces disponibles, agrégalos como texto aparte bajo “Más información:” y enlista los links (uno por línea).\n\nFinaliza con una invitación directa a participar o a dejar consultas debajo de la publicación.\n\nRestricciones:\n\nNo incluyas hashtags.\n\nNo repitas información extra si los campos están vacíos.\n\nUsa saltos de línea para separar bloques y facilitar la lectura.\n\nVariables para insertar:\n\nTítulo: {{ $json['Titulo de la actividad'] }}\n\nDescripción: {{ $json['Descripción breve de la actividad '] }}\n\nFecha: {{ $json['Fecha(DD/MM/YYYY)'] }}\n\nLugar: {{ $json['Ubicación'] }}\n\nOrganiza: {{ $json['Carrera responsable '] }}\n\nEnlaces opcionales: {{ $json['Enlaces opcionales 1.'] }} {{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -280,7 +280,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Redacta una publicación para una página de Facebook institucional sobre la siguiente actividad académica.\n\nEl texto debe ser claro, directo, inclusivo y atractivo para estudiantes, docentes y comunidad general.\n\nNO uses emojis ni símbolos especiales.\n\nEstructura sugerida:\n\nComienza destacando el título.\n\nEn un primer párrafo breve, explica de qué trata la actividad y para quién es relevante.\n\nAñade detalles: fecha, lugar, quién organiza y beneficios para los asistentes.\n\nSi hay enlaces disponibles, agrégalos como texto aparte bajo “Más información:” y enlista los links (uno por línea).\n\nFinaliza con una invitación directa a participar o a dejar consultas debajo de la publicación.\n\nRestricciones:\n\nNo incluyas hashtags.\n\nNo repitas información extra si los campos están vacíos.\n\nUsa saltos de línea para separar bloques y facilitar la lectura.\n\nVariables para insertar:\n\nTítulo: {{ $json['titulo de la actividad'] }}\n\nDescripción: {{ $json['descripción'] }}\n\nFecha: {{ $json.fecha }}\n\nLugar: {{ $json['ubicación '] }}\n\nOrganiza: {{ $json['carrera responsable'] }}\n\nEnlaces opcionales: {{ $json['Enlaces opcionales 1.'] }} {{ $json['Enlaces opcionales .2'] }}{{ $json['Enlaces opcionales .3'] }}",
+        "text": "=Redacta una publicación para una página de Facebook institucional sobre la siguiente actividad académica.\n\nEl texto debe ser claro, directo, inclusivo y atractivo para estudiantes, docentes y comunidad general.\n\nNO uses emojis ni símbolos especiales.\n\nEstructura sugerida:\n\nComienza destacando el título.\n\nEn un primer párrafo breve, explica de qué trata la actividad y para quién es relevante.\n\nAñade detalles: fecha, lugar, quién organiza y beneficios para los asistentes.\n\nSi hay enlaces disponibles, agrégalos como texto aparte bajo “Más información:” y enlista los links (uno por línea).\n\nFinaliza con una invitación directa a participar o a dejar consultas debajo de la publicación.\n\nRestricciones:\n\nNo incluyas hashtags.\n\nNo repitas información extra si los campos están vacíos.\n\nUsa saltos de línea para separar bloques y facilitar la lectura.\n\nVariables para insertar:\n\nTítulo: {{ $json['Titulo de la actividad'] }}\n\nDescripción: {{ $json['Descripción breve de la actividad '] }}\n\nFecha: {{ $json['Fecha(DD/MM/YYYY)'] }}\n\nLugar: {{ $json['Ubicación'] }}\n\nOrganiza: {{ $json['Carrera responsable '] }}\n\nEnlaces opcionales: {{ $json['Enlaces opcionales 1.'] }} {{ $json['Enlaces opcionales 2.'] }}{{ $json['Enlaces opcionales 3.'] }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -1569,7 +1569,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Redacta una publicación de Instagram para una actividad académica.\n\nNO uses símbolos de formato como asteriscos ni emojis.\n\nEl tono debe ser cercano y claro, dirigido a estudiantes universitarios o público joven profesional.\n\nEl texto debe estar estructurado así:\n\nTítulo de la actividad como encabezado destacado.\n\nResumen/descripción clara y directa, en uno o dos párrafos.\n\nLas fechas y el lugar en líneas separadas.\n\nQuién organiza, en una nueva línea.\n\nSolo incluye la sección \"Más información\" si existe algún enlace disponible; pon uno por línea.\n\nTermina con una invitación a participar o dejar un comentario.\n\nAgrega hasta 5 hashtags alineados al evento.\n\nAsegúrate de que el texto generado:\n\nNo tenga más de 2200 caracteres.\n\nNo use formato visual especial ni emojis.\n\nUse saltos de línea para separar cada sección o bloque.\n\nUtiliza estos datos dinámicos (solo reemplaza lo indicado, y omite las secciones si el dato está vacío):\n\nTítulo: {{ $json['titulo de la actividad'] }}\nDescripción: {{ $json['descripción'] }}\nFecha: {{ $json.fecha }}\nLugar: {{ $json['ubicación '] }}\nOrganiza: {{ $json['carrera responsable'] }}\nLink1: {{ $json['Enlaces opcionales 1.'] }}\nLink2: {{ $json['Enlaces opcionales .2'] }}\nLink3: {{ $json['Enlaces opcionales .3'] }}",
+        "text": "=Redacta una publicación de Instagram para una actividad académica.\n\nNO uses símbolos de formato como asteriscos ni emojis.\n\nEl tono debe ser cercano y claro, dirigido a estudiantes universitarios o público joven profesional.\n\nEl texto debe estar estructurado así:\n\nTítulo de la actividad como encabezado destacado.\n\nResumen/descripción clara y directa, en uno o dos párrafos.\n\nLas fechas y el lugar en líneas separadas.\n\nQuién organiza, en una nueva línea.\n\nSolo incluye la sección \"Más información\" si existe algún enlace disponible; pon uno por línea.\n\nTermina con una invitación a participar o dejar un comentario.\n\nAgrega hasta 5 hashtags alineados al evento.\n\nAsegúrate de que el texto generado:\n\nNo tenga más de 2200 caracteres.\n\nNo use formato visual especial ni emojis.\n\nUse saltos de línea para separar cada sección o bloque.\n\nUtiliza estos datos dinámicos (solo reemplaza lo indicado, y omite las secciones si el dato está vacío):\n\nTítulo: {{ $json['Titulo de la actividad'] }}\nDescripción: {{ $json['Descripción breve de la actividad '] }}\nFecha: {{ $json['Fecha(DD/MM/YYYY)'] }}\nLugar: {{ $json['Ubicación'] }}\nOrganiza: {{ $json['Carrera responsable '] }}\nLink1: {{ $json['Enlaces opcionales 1.'] }}\nLink2: {{ $('Webhook').item.json.body['Enlaces opcionales .2'] }}\nLink3: {{ $('Webhook').item.json.body['Enlaces opcionales .3'] }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -2059,7 +2059,45 @@
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "unsignifying-rodolfo-squeezingly.ngrok-free.dev",
+            "user-agent": "wordpress/bit-integrations",
+            "content-length": "1324",
+            "accept": "*/*",
+            "accept-encoding": "deflate, gzip, br, zstd",
+            "content-type": "multipart/form-data; boundary=WH8mlHrh9Lgw(bsETN0dy8WO",
+            "x-forwarded-for": "200.27.88.4",
+            "x-forwarded-host": "unsignifying-rodolfo-squeezingly.ngrok-free.dev",
+            "x-forwarded-proto": "https"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "correo": "dhylan.lucas@gmail.com",
+            "titulo de la actividad": "nueva prueba de formulario",
+            "descripción": "PROBANDO MAS COSAS",
+            "carrera responsable ": "Ingeniería en Computación e Informática",
+            "ubicación ": "viña del mar",
+            "imagen": "http://10.40.5.7:8082/wp-content/uploads/bitforms/uploads/2/a552a0a8284fa9acdaee/Logo_unab-Sara-Gonzalez-Catalan.png",
+            "fecha": "2025-12-18",
+            "Enlaces opcionales 1.": "",
+            "Enlaces opcionales .2": "",
+            "Enlaces opcionales .3": "",
+            "Donde quiere subir(Hasta 3 opciones)": "[\"Instagram (Imagen obligatoria)\",\"Facebook\",\"web institucional\"]"
+          },
+          "webhookUrl": "https://unsignifying-rodolfo-squeezingly.ngrok-free.dev/webhook/b0a54869-8b87-4437-b37c-a3c93c2781ff",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "connections": {
     "!IMAGEN": {
       "main": [
@@ -2791,11 +2829,11 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "04d8e964-f918-4f27-bd89-87fd56c3e649",
+  "versionId": "1c36ff2f-6d3c-41bb-8e3f-1c246b0085ec",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "d4754869bb374c28236d6f55e8c85f5b71199b71c4d7cf8f901b604f8d5fee2e"
